@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-paper: #f8f7f5;
+  --color-ink: #1a1a1e;
+  --color-ink-soft: #6e6e78;
+  --color-ink-muted: #a8a8b0;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #f4f4f2;
+  --color-border-subtle: #eaeae8;
+  --color-border: #e0dfdc;
+  --color-accent: #2d7d46;
+  --color-accent-soft: #eaf4ec;
+  --color-accent-muted: #f0f6f2;
+  --color-warn: #c97a2e;
+  --color-warn-soft: #fdf4e8;
+  --color-danger: #c43e3e;
+  --color-danger-soft: #fceeea;
+  --color-mint: #e8f5e9;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d4d4d0; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #b8b8b0; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* вода: всплывающие пузырьки и дрейф бликов */
+@keyframes rise {
+  0%   { transform: translateY(0) translateX(0) scale(.85); opacity: 0; }
+  8%   { opacity: .55; }
+  85%  { opacity: .3; }
+  100% { transform: translateY(-108vh) translateX(14px) scale(1.12); opacity: 0; }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(32px, -24px) scale(1.07); }
+}
+.animate-rise { animation: rise linear infinite; }
+.animate-drift { animation: drift 11s ease-in-out infinite; }
+.animate-drift-slow { animation: drift 17s ease-in-out infinite; }
+
+/* скользящий блик по скидочной карте */
+@keyframes shine {
+  0%   { transform: translateX(-140%) skewX(-18deg); }
+  60%  { transform: translateX(240%) skewX(-18deg); }
+  100% { transform: translateX(240%) skewX(-18deg); }
+}
+.card-shine::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  animation: shine 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.35s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out both;
+}
